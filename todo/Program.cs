@@ -52,12 +52,6 @@ namespace todo
 
         }
 
-        //static bool isnull(string value)
-        //{
-
-        //}
-
-
       
         static void Main(string[] args)
         {
