@@ -16,8 +16,13 @@ namespace todo
             {
                 if (!distinctElements.Contains(list[i]))
                     distinctElements.Add(list[i]);
+
                 i++;
+
             }
+
+            distinctElements.RemoveAll(x => x.Count() == 0);
+
             Console.WriteLine();
             return distinctElements;
         }
@@ -34,8 +39,8 @@ namespace todo
                     RemoveElements.Add(list[j]);
                 j++;
             }
-            RemoveElements.RemoveAt(a-1);
-          
+            RemoveElements.RemoveAt(a - 1);
+
             return RemoveElements;
         }
         static void ListOutput(List<string> list)
@@ -44,23 +49,47 @@ namespace todo
 
             for (int i = 0; i < list.Count; i++)
                 Console.WriteLine(i + 1 + " " + list[i].Trim());
-            
+
         }
+
+        //static bool isnull(string value)
+        //{
+
+        //}
+
 
       
         static void Main(string[] args)
         {
-            Console.WriteLine("What's your name?");
-            string username = Console.ReadLine();
+            string username = null;
+
+            while(true)
+            {
+                Console.WriteLine("What's your name?");
+                username = Console.ReadLine();
+                bool bisEmpty = String.IsNullOrWhiteSpace(username);
+
+                if (bisEmpty)
+                {
+                    Console.WriteLine("Enter your Name, please");
+                    Console.ReadKey();
+                }
+                else
+                    break;
+
+            }
+           
+                   
             Console.WriteLine("Hello, " + username);
-            Console.WriteLine("Сhoose a number with the action you want to do:\n1 - ADD task\n2 - Delete task\n3 - show all tasks");
+            while (true)
+            {
+                Console.WriteLine("Сhoose a number with the action you want to do:\n1 - ADD task\n2 - Delete task\n3 - show all tasks");
             string action = Console.ReadLine();
 
             string input = null;
             List<string> tasks = new List<string>();
 
-            while (true)
-            {
+            
                 switch (action)
                 {
 
@@ -68,11 +97,13 @@ namespace todo
 
 
                         Console.WriteLine("Now you will be introducing new tasks, when you are finished press the SPACE");
-                        while (input != " ")
+
+                        string input2 = input;
+                        while (input2 != " ")
                         {
                             Console.WriteLine("Enter new task");
-                            input = Console.ReadLine();
-                            tasks.Add(input);
+                            input2 = Console.ReadLine();
+                            tasks.Add(input2);
 
                         }
                         GetUniqueElements(tasks);
@@ -91,6 +122,7 @@ namespace todo
                                 else
                                 {
                                     Console.WriteLine("Bye - bye");
+                                    Environment.Exit(0);
                                 }
 
                                 break;
@@ -163,6 +195,31 @@ namespace todo
                                 {
                                     goto case "2";
                                 }
+
+                                else
+                                {
+                                    Console.WriteLine("Want to add a task - PRESS 1\nSee the whole list - PRESS 2\nExit the program - PRESS 3");
+                                    int num3 = Int32.Parse(Console.ReadLine());
+
+                                    if (num3 == 1)
+                                    {
+                                        goto case "1";
+                                        
+                                    }
+                                    else if (num3 == 2)
+                                    {
+                                        goto case "3";
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Bye bye");
+                                        Console.ReadKey();
+                                        Environment.Exit(0);
+                                    }
+                                        
+                                    
+                                        
+                                }
                                 break;
                             }
 
@@ -181,7 +238,9 @@ namespace todo
 
                     default:
                         Console.WriteLine("Unknown action! Choose a number with the action");
+                        Console.ReadKey();
                         continue;
+                        
 
                 }
 
