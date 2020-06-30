@@ -77,7 +77,7 @@ namespace todo
 
             Console.WriteLine("Hello, " + username);
 
-            string input = null;
+            string input = String.Empty;
             List<string> tasks = new List<string>();
 
             while (true)
@@ -96,7 +96,7 @@ namespace todo
 
                         string input2 = input;
                         Console.WriteLine("Enter new task");
-                        input2 = Console.ReadLine();
+                        input2 = Console.ReadLine().Trim();
                         tasks.Add(input2);
 
                         
