@@ -24,40 +24,39 @@ namespace todo
             distinctElements.RemoveAll(x => x.Count() == 0);
 
             Console.WriteLine();
+            
             return distinctElements;
         }
 
 
         static List<string> RemoveElement(List<string> list, int a)
         {
-            List<string> RemoveElements = new List<string>();
+            List<string> removeElements = new List<string>();
 
             int j = 0;
             while (j < list.Count)
             {
-                if (!RemoveElements.Contains(list[j]))
-                    RemoveElements.Add(list[j]);
+                if (!removeElements.Contains(list[j]))
+                    removeElements.Add(list[j]);
                 j++;
             }
-            RemoveElements.RemoveAt(a - 1);
+            int b = a - 1;
+            removeElements.Remove(removeElements[b]);
 
-            return RemoveElements;
+
+            return removeElements;
         }
         static void ListOutput(List<string> list)
         {
             Console.WriteLine("\t Task List");
 
             for (int i = 0; i < list.Count; i++)
-                Console.WriteLine(i + 1 + " " + list[i].Trim());
+                Console.WriteLine(i + 1 + " " + list[i]);
 
         }
 
-     
-
-        static void Main(string[] args)
+        static string userName (string username)
         {
-            string username = null;
-
             while (true)
             {
                 Console.WriteLine("What's your name?");
@@ -74,155 +73,79 @@ namespace todo
 
             }
 
+            return username;
+        }
 
-            Console.WriteLine("Hello, " + username);
+        static void Main(string[] args)
+        {
+            string username = String.Empty;
+
+            Console.WriteLine("Hello, " + userName(username));
 
             string input = String.Empty;
             List<string> tasks = new List<string>();
-
+     
             while (true)
             {
-
                 Console.WriteLine("Сhoose a number with the action you want to do:\n1 - ADD task\n2 - Delete task\n3 - show all tasks\n4 - Exit the program");
                 string action = Console.ReadLine();
 
-                switch (action)
+                if (action == "1")
                 {
+                    Console.WriteLine("Now you will enter new tasks");
 
-                    case "1":
-
-
-                        Console.WriteLine("Now you will enter new tasks");
-
-                        string input2 = input;
-                        Console.WriteLine("Enter new task");
-                        input2 = Console.ReadLine().Trim();
-                        tasks.Add(input2);
-
-                        
-                        GetUniqueElements(tasks);
-
-                        break;
-
-                    case "2":
-                        if (tasks.Count == 0)
-                        {
-                            Console.WriteLine("Your list is empty! Add task\nPress any key to continue");
-
-                            Console.ReadKey();
-
-                            break;
-                            
-                        }
-                        while (true)
-                        {
-                            ListOutput(GetUniqueElements(tasks));
-                            Console.WriteLine("DELETE task");
-                            Console.WriteLine("enter the number of the task to be deleted");
-
-                            try
-                            {
-                                int c = Convert.ToInt32(Console.ReadLine());
-                                RemoveElement(tasks, c);
-                                ListOutput(RemoveElement(tasks, c));
-                                break;
-                            }
-
-                            catch
-                            {
-                                Console.WriteLine("Enter number, please\nPress any key to continue");
-                                Console.ReadLine();
-                                continue;
-                            }
-                        }
-
-                        break;
-
-                    case "3":
-                        if (tasks.Count == 0)
-                        {
-                            Console.WriteLine("Your list is empty! Add task\nPress any key to continue");
-
-                            Console.ReadKey();
-
-                            break;
-                        }
-
-                        ListOutput(GetUniqueElements(tasks));
-
-                        while (true)
-                        {
-                            try
-                            {
-                                Console.WriteLine("Do you want to DELTED a task?");
-                                Console.WriteLine("1 - YES\n2 - NO");
-                                int num = Int32.Parse(Console.ReadLine());
-                                if (num == 1)
-                                {
-                                    goto case "2";
-                                }
-
-                                else
-                                {
-                                    Console.WriteLine("Want to add a task - PRESS 1\nSee the whole list - PRESS 2\nExit the program - PRESS 3");
-                                    int num3 = Int32.Parse(Console.ReadLine());
-
-                                    if (num3 == 1)
-                                    {
-                                        goto case "1";
-
-                                    }
-                                    else if (num3 == 2)
-                                    {
-                                        goto case "3";
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Bye bye");
-                                        Console.ReadKey();
-                                        Environment.Exit(0);
-                                    }
-
-
-
-                                }
-                                break;
-                            }
-
-                            catch
-                            {
-                                Console.WriteLine("Enter number, please\nPress any key to continue");
-                                Console.ReadLine();
-                                continue;
-                            }
-
-                        }
-
-                        break;
-                    case "4":
-
-                        Console.WriteLine("Bye bye");
-                        Console.ReadKey();
-                        Environment.Exit(0);
-                        break;
-
-
-
-
-                    default:
-                        Console.WriteLine("Unknown action! Choose a number with the action");
-                        Console.ReadKey();
-                        continue;
-
+                    string input2 = input;
+                    Console.WriteLine("Enter new task");
+                    input2 = Console.ReadLine().Trim();
+                    tasks.Add(input2);
+                    GetUniqueElements(tasks);
 
                 }
+                else if (action == "2")
+                {
+                    if (tasks.Count == 0)
+                    {
+                        Console.WriteLine("Your list is empty! Add task\nPress any key to continue");
 
+                        Console.ReadKey();
+
+                        continue;
+                    }
+                    ListOutput(GetUniqueElements(tasks));
+                    Console.WriteLine("DELETE task");
+                    Console.WriteLine("enter the number of the task to be deleted");
+                    int c = Convert.ToInt32(Console.ReadLine());
+                    tasks = RemoveElement(tasks, c);
+                  
+                    ListOutput(tasks);
+                }
+                else if (action =="3")
+                {
+                    if (tasks.Count == 0)
+                    {
+                        Console.WriteLine("Your list is empty! Add task\nPress any key to continue");
+
+                        Console.ReadKey();
+
+                       continue;
+                    }
+                    ListOutput(GetUniqueElements(tasks));
+                }
+                else if (action== "4")
+                {
+                    Console.WriteLine("Bye bye");
+                    Console.ReadKey();
+                    Environment.Exit(0);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Enter number, please\nPress any key to continue");
+                    Console.ReadKey();
+                }
             }
 
-
-
-
-
+            Console.ReadKey();
         }
     }
 }
