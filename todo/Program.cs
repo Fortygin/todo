@@ -114,20 +114,33 @@ namespace todo
                     ListOutput(GetUniqueElements(tasks));
                     Console.WriteLine("DELETE task");
                     Console.WriteLine("enter the number of the task to be deleted");
-                    int c = Convert.ToInt32(Console.ReadLine());
-                    if (c > 0)
-                    {
-                        tasks = RemoveElement(tasks, c);
+                    
 
-                        ListOutput(tasks);
+                    try
+                    {
+                        int c = Convert.ToInt32(Console.ReadLine());
+                        if (c > 0)
+                        {
+                            tasks = RemoveElement(tasks, c);
+
+                            ListOutput(tasks);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Next time select the task number from the list");
+
+                            continue;
+                        }
+
                     }
-                    else
+
+                    catch(Exception)
                     {
                         Console.WriteLine("Next time select the task number from the list");
-                        
+
                         continue;
                     }
-                        
+                    
                     
                     
                 }
