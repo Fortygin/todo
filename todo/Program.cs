@@ -84,7 +84,7 @@ namespace todo
 
             string input = String.Empty;
             List<string> tasks = new List<string>();
-     
+
             while (true)
             {
                 Console.WriteLine("Сhoose a number with the action you want to do:\n1 - ADD task\n2 - Delete task\n3 - show all tasks\n4 - Exit the program");
@@ -98,7 +98,7 @@ namespace todo
                     Console.WriteLine("Enter new task");
                     input2 = Console.ReadLine().Trim();
                     tasks.Add(input2);
-                    GetUniqueElements(tasks);
+                    tasks = GetUniqueElements(tasks);
 
                 }
                 else if (action == "2")
@@ -115,9 +115,21 @@ namespace todo
                     Console.WriteLine("DELETE task");
                     Console.WriteLine("enter the number of the task to be deleted");
                     int c = Convert.ToInt32(Console.ReadLine());
-                    tasks = RemoveElement(tasks, c);
-                  
-                    ListOutput(tasks);
+                    if (c > 0)
+                    {
+                        tasks = RemoveElement(tasks, c);
+
+                        ListOutput(tasks);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Next time select the task number from the list");
+                        
+                        continue;
+                    }
+                        
+                    
+                    
                 }
                 else if (action =="3")
                 {
