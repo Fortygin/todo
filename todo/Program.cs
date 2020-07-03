@@ -96,7 +96,7 @@ namespace todo
 
                     string input2 = input;
                     Console.WriteLine("Enter new task");
-                    input2 = Console.ReadLine().Trim();
+                    input2 = DateTime.Now.ToString("hh:mm:ss - ") + Console.ReadLine().Trim();
                     tasks.Add(input2);
                     tasks = GetUniqueElements(tasks);
 
